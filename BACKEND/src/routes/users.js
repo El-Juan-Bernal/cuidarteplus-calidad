@@ -20,6 +20,15 @@ function getUserFromAuthHeader(req) {
   }
 }
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // máximo 100 peticiones por IP cada 15 minutos
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use(limiter);
+
 router.post("/", validate(createUserSchema), async (req, res) => {
   const { nombre_usuario, contrasena_hash, correo, rol_id } = req.body;
   try {
