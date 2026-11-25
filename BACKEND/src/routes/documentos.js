@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "inseguro";
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB
+    fileSize: 5 * 1024 * 1024, // 5MB
   },
   fileFilter: (req, file, cb) => {
     const allowedMimes = [
@@ -240,8 +240,6 @@ router.get("/:id", async (req, res) => {
       contentType = "image/jpeg";
     } else if (extension === 'png') {
       contentType = "image/png";
-    } else if (extension === 'pdf') {
-      contentType = "application/pdf";
     }
     
     res.setHeader("Content-Type", contentType);

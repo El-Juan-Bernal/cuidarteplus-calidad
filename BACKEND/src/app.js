@@ -17,8 +17,12 @@ const auditRoutes = require("./routes/audit");
 const rolesRoutes = require("./routes/roles");
 
 const app = express();
+app.disable("x-powered-by");
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 

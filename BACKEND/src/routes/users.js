@@ -53,11 +53,12 @@ router.post("/", validate(createUserSchema), async (req, res) => {
     }
 
     // Registrar en auditoría
+    const rolTexto = rol_id ? ` con rol ${rol_id}` : "";
     await pool.query(
       "INSERT INTO auditoria (usuario_id, accion) VALUES ($1, $2)",
       [
         authUser?.usuarioId || null,
-        `USUARIOS_CREAR: creó usuario ${nombre_usuario}${rol_id ? ` con rol ${rol_id}` : ""}`,
+        `USUARIOS_CREAR: creó usuario ${nombre_usuario}${rolTexto}`,
       ]
     );
 
