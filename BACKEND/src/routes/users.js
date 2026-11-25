@@ -1,4 +1,5 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 const { pool } = require("../db");
 const jwt = require("jsonwebtoken");
 const validate = require("../middleware/validate");
@@ -27,7 +28,7 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(limiter);
+router.use(limiter);
 
 router.post("/", validate(createUserSchema), async (req, res) => {
   const { nombre_usuario, contrasena_hash, correo, rol_id } = req.body;
