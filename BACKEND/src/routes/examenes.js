@@ -1,6 +1,7 @@
 const express = require("express");
 const { pool } = require("../db");
 const jwt = require("jsonwebtoken");
+const validate = require("../middleware/validate");
 const { examenMedicoSchema, updateExamenMedicoSchema } = require("../validations/examenes");
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "inseguro";
