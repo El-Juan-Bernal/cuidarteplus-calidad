@@ -21,8 +21,12 @@ const rolesRoutes = require("./routes/roles");
 const app = express();
 app.disable("x-powered-by");
 
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",")
+  : ["http://localhost:3333", "http://localhost:5173"];
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+  origin: allowedOrigins,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -53,6 +57,12 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`cuidarteplus API escuchando en puerto ${PORT}`);
-});
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`cuidarteplus API escuchando en puerto ${PORT}`);
+  });
+}
+
+module.exports = app;
+
