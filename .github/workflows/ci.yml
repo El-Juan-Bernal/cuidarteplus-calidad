@@ -184,7 +184,7 @@ jobs:
   # -------------------------------------------------------------------
   publicar:
     name: 4 · Publicar imágenes Docker (GHCR)
-    needs: [pruebas-sistema]
+    needs: [pruebas-codigo]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
